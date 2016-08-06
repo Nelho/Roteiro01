@@ -35,9 +35,10 @@ public class CadastroActivity extends AppCompatActivity {
             }
         });
     }
+
     private void cadastrar() {
         String nome = mNome.getText().toString();
-        String sobrenome =  mSobrenome.getText().toString();
+        String sobrenome = mSobrenome.getText().toString();
         String usuario = mUsuario.getText().toString();
         String senha = mSenha.getText().toString();
         String confirmaSenha = mConfirmaSenha.toString();
@@ -47,37 +48,43 @@ public class CadastroActivity extends AppCompatActivity {
             this.mNome.setError("Campo nome vazio");
             focus = this.mNome;
             focus.requestFocus();
-        }else if(TextUtils.isEmpty(sobrenome)) {
+        }
+        if (TextUtils.isEmpty(sobrenome)) {
             this.mSobrenome.setError("Campo sobrenome vazio");
             focus = this.mSobrenome;
             focus.requestFocus();
-        }else if (TextUtils.isEmpty(usuario)) {
+        }
+        if (TextUtils.isEmpty(usuario)) {
             this.mUsuario.setError("Campo usuario vazio");
             focus = this.mUsuario;
             focus.requestFocus();
-        }else if (TextUtils.isEmpty(senha)) {
+        }
+        if (TextUtils.isEmpty(senha)) {
             this.mSenha.setError("Campo senha vazio");
             focus = this.mSenha;
             focus.requestFocus();
 
-        }else if (TextUtils.isEmpty(confirmaSenha)) {
+        }
+        if (TextUtils.isEmpty(confirmaSenha)) {
             this.mConfirmaSenha.setError("Campo confirma senha vazio");
-            focus = this.mConfirmaSenha;
-            focus.requestFocus();
-        }else if (!(senha.equalsIgnoreCase(confirmaSenha))){
-            this.mConfirmaSenha.setError("Senhas não conferem");
             focus = this.mConfirmaSenha;
             focus.requestFocus();
 
         }else{
-            Intent intent = new Intent(this, SegundaTelaActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("usuario", nome);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-
+            if (confirmaSenha.equalsIgnoreCase(senha)){
+                Intent intent = new Intent(this, SegundaTelaActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("usuario", nome);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }else{
+                this.mConfirmaSenha.setError("Senhas não conferem");
+                focus = this.mConfirmaSenha;
+                focus.requestFocus();
+            }
         }
 
     }
 }
+
